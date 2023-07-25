@@ -1,22 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link href="./assets/style.css" rel="stylesheet" />
-    
-    
     <title>The Mild High Club</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-</head>
-<body>
-    <img src="./Images/airportimage.jpg" width="1000" height="8000"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link href="./assets/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <img src="./Images/airportimage.jpg" width="1000" height="8000" />
     <h1 class="is-size-1 is-uppercase is-italic">The Mild High Club</h1>
-    <select id="states">
-        
-      </select>
-    
-</body>
-<script src="./assets/script.js"></script>
+
+    <div class="dropdown is-hoverable">
+      <div class="dropdown-trigger">
+        <button
+          class="button ml-2"
+          aria-haspopup="true"
+          aria-controls="dropdown-menu3"
+        >
+          <span>Select Your State</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu ml-2" id="dropdown-menu3" role="menu">
+        <div class="dropdown-content">
+          <a href="#" class="dropdown-item"> Alabama </a>
+          <a href="#" class="dropdown-item"> Alaska </a>
+          <a href="#" class="dropdown-item"> Arizona </a>
+          <a href="#" class="dropdown-item"> Arkansas </a>
+          <a href="#" class="dropdown-item"> California </a>
+          <a href="#" class="dropdown-item"> Colorado </a>
+          <a href="#" class="dropdown-item"> Connecticut </a>
+          <a href="#" class="dropdown-item"> Delaware </a>
+          <a href="#" class="dropdown-item"> Florida </a>
+          <a href="#" class="dropdown-item"> Georgia </a>
+          <a href="#" class="dropdown-item"> Hawaii </a>
+          <a href="#" class="dropdown-item"> Idaho </a>
+          <a href="#" class="dropdown-item"> Illinois </a>
+          <a href="#" class="dropdown-item"> Indiana </a>
+          <a href="#" class="dropdown-item"> Iowa </a>
+          <a href="#" class="dropdown-item"> Kansas </a>
+          <a href="#" class="dropdown-item"> Kentucky </a>
+          <a href="#" class="dropdown-item"> Louisiana </a>
+          <a href="#" class="dropdown-item"> Maine </a>
+          <a href="#" class="dropdown-item"> Maryland </a>
+          <a href="#" class="dropdown-item"> Massachusetts </a>
+          <a href="#" class="dropdown-item"> Michigan </a>
+          <a href="#" class="dropdown-item"> Minnesota </a>
+          <a href="#" class="dropdown-item"> Mississippi </a>
+          <a href="#" class="dropdown-item"> Missouri </a>
+          <a href="#" class="dropdown-item"> Montana </a>
+          <a href="#" class="dropdown-item"> Nebraska </a>
+          <a href="#" class="dropdown-item"> Nevada </a>
+          <a href="#" class="dropdown-item"> New Hampshire </a>
+          <a href="#" class="dropdown-item"> New Jersey </a>
+          <a href="#" class="dropdown-item"> New Mexico </a>
+          <a href="#" class="dropdown-item"> New York </a>
+          <a href="#" class="dropdown-item"> North Carolina </a>
+          <a href="#" class="dropdown-item"> North Dakota </a>
+          <a href="#" class="dropdown-item"> Ohio </a>
+          <a href="#" class="dropdown-item"> Oklahoma </a>
+          <a href="#" class="dropdown-item"> Oregon </a>
+          <a href="#" class="dropdown-item"> Pennsylvania </a>
+          <a href="#" class="dropdown-item"> Rhode Island </a>
+          <a href="#" class="dropdown-item"> South Carolina </a>
+          <a href="#" class="dropdown-item"> South Dakota </a>
+          <a href="#" class="dropdown-item"> Tennessee </a>
+          <a href="#" class="dropdown-item"> Texas </a>
+          <a href="#" class="dropdown-item"> Utah </a>
+          <a href="#" class="dropdown-item"> Vermont </a>
+          <a href="#" class="dropdown-item"> Virginia </a>
+          <a href="#" class="dropdown-item"> Washington </a>
+          <a href="#" class="dropdown-item"> West Virginia </a>
+          <a href="#" class="dropdown-item"> Wisconsin </a>
+          <a href="#" class="dropdown-item"> Wyoming </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+        Placeholder
+      </div>
+      <div class="block">
+        This text is within a <strong>second block</strong>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+      </div>
+      <div class="block">
+        This text is within a <strong>third block</strong>. This block has no margin at the bottom.
+      </div>
+  </body>
+  <script src="./assets/script.js"></script>
 </html>
