@@ -8,6 +8,9 @@ const airportOptions = {
   },
 };
 
+const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=9NxqxxJEJsAJMywoyWy0LRF5r0zYFdVk";
+
+
 var statesList = [
   "Select",
   "Alabama",
@@ -78,3 +81,24 @@ function getApi(airportRequestUrl) {
 }
 
 getApi(airportRequest);
+
+
+  
+
+fetch(weatherRequest)
+    .then(function (response) {
+      if (response.ok) {
+        console.log(response);
+        response.json().then(function (data) {
+          console.log(data);
+         
+        
+          
+        });
+      } else {
+        alert('Error: ' + response.statusText);
+      }
+    })
+    .catch(function (error) {
+      alert('Unable to connect to AccuWeather');
+    });
