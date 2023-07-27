@@ -90,11 +90,12 @@ fetch(weatherRequest)
       if (response.ok) {
         console.log(response);
         response.json().then(function (data) {
-          console.log(data);
-         
+          console.log(data.DailyForecasts[0]);
+          var x = document.createElement("p");
+          x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
+          document.querySelector("body").appendChild(x)
+      })
         
-          
-        });
       } else {
         alert('Error: ' + response.statusText);
       }
