@@ -11,6 +11,11 @@
 }
 
 .dropdown {
+  margin-top: -10px;
+  margin-left: 2px;
+}
+
+.dropdownA {
   margin-top: 10px;
   margin-left: 10px;
   width: 25%;
