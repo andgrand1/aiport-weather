@@ -3,7 +3,7 @@ const airportRequest = "https://api.api-ninjas.com/v1/airports?region=${state}";
 const airportOptions = {
   headers: {
     "Content-Type": "application/json",
-    "X-Api-Key": "9NxqxxJEJsAJMywoyWy0LRF5r0zYFdVk",
+    "X-Api-Key": "bnQwuT6BX0QsPXbYebfY/A==Y1ZwZQ6OLOMQOTSp",
   },
 };
 
