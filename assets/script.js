@@ -8,7 +8,7 @@ const airportOptions = {
   },
 };
 
-const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=9NxqxxJEJsAJMywoyWy0LRF5r0zYFdVk";
+//const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 
 
 var statesList = [
@@ -85,21 +85,21 @@ getApi(airportRequest);
 
   
 
-fetch(weatherRequest)
-    .then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function (data) {
-          console.log(data.DailyForecasts[0]);
-          var x = document.createElement("p");
-          x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
-          document.querySelector("body").appendChild(x)
-      })
+// fetch(weatherRequest)
+//     .then(function (response) {
+//       if (response.ok) {
+//         console.log(response);
+//         response.json().then(function (data) {
+//           console.log(data.DailyForecasts[0]);
+//           var x = document.createElement("p");
+//           x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
+//           document.querySelector("body").appendChild(x)
+//       })
         
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-      alert('Unable to connect to AccuWeather');
-    });
+//       } else {
+//         alert('Error: ' + response.statusText);
+//       }
+//     })
+//     .catch(function (error) {
+//       
+//     });
