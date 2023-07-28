@@ -1,4 +1,4 @@
-var selectEl = document.querySelector("#states");
+const selectEl = document.querySelector("#dropdown-menu3");
 const airportRequest =
   "https://api.api-ninjas.com/v1/airports?region=California";
 const airportOptions = {
@@ -63,19 +63,17 @@ var statesList = [
   "Wyoming",
 ];
 
-for (var i = 0; i < statesList.length; i++) {
-  var stateSelected = statesList[i];
-  var listState = document.createElement("option");
-  listState.textContent = stateSelected;
-  listState.value = stateSelected;
-  stateSelect.appendChild(listState);
-}
-
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
 // console.log("X: ", x)
 
-function getApi(airportRequestUrl) {
+function selectedStateSaver() {
+  var state = California;
+
+  localStorage.setItem("selectedState", state);
+}
+
+function getAirports(airportRequestUrl) {
   fetch(airportRequestUrl, airportOptions)
     .then(function (response) {
       console.log(response.status);
@@ -86,10 +84,8 @@ function getApi(airportRequestUrl) {
     });
 }
 
-getApi(airportRequest);
 
-
-  
+getAirports(airportRequest);
 
 // fetch(weatherRequest)
 //     .then(function (response) {
@@ -101,11 +97,14 @@ getApi(airportRequest);
 //           x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
 //           document.querySelector("body").appendChild(x)
 //       })
-        
+
 //       } else {
 //         alert('Error: ' + response.statusText);
 //       }
 //     })
 //     .catch(function (error) {
-//       
+
+//
 //     });
+
+// selectEl.addEventListener('click', stateSelect)
