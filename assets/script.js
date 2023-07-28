@@ -1,11 +1,15 @@
 const selectEl = document.querySelector("#dropdown-menu3");
-const airportRequest = "https://api.api-ninjas.com/v1/airports?region=${state}";
+const airportRequest =
+  "https://api.api-ninjas.com/v1/airports?region=" +
+  localStorage.getItem("selectedState");
 const airportOptions = {
   headers: {
     "Content-Type": "application/json",
     "X-Api-Key": "bnQwuT6BX0QsPXbYebfY/A==Y1ZwZQ6OLOMQOTSp",
   },
 };
+const airportContainerEl = document.querySelector("#airport-container");
+const selectedStateNameEl = document.querySelector("selected-state-display");
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
@@ -81,24 +85,41 @@ stateSelect.addEventListener("change", () => {
 // x.setAttribute("disable", "true")
 // console.log("X: ", x)
 
-function selectedStateSaver() {
-  var state = California;
+function selectedStateSaver(stateName) {
+  var state = "California";
 
   localStorage.setItem("selectedState", state);
 }
 
 function getAirports(airportRequestUrl) {
-  fetch(airportRequestUrl, airportOptions)
-    .then(function (response) {
-      console.log(response.status);
-      return response.json();
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+  const savedState = localStorage.getItem("selectedState");
+
+  if (savedState !== null) {
+    fetch(airportRequestUrl, airportOptions)
+      .then(function (response) {
+        console.log(response.status);
+        response.json().then(function (data) {
+          console.log(data);
+          // displayAirports(data, savedState);
+        });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
 }
 
-// getAirports(airportRequest);
+// function displayAirports(airports, stateName) {
+//   selectedStateNameEl.textContent = stateName;
+
+//   for (var i = 0; i < airports.length; i++) {
+//     const airportName =
+//   }
+// }
+
+selectedStateSaver();
+
+getAirports(airportRequest);
 
 // fetch(weatherRequest)
 //     .then(function (response) {
