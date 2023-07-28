@@ -1,4 +1,4 @@
-var selectEl = document.querySelector("#states");
+const selectEl = document.querySelector("#dropdown-menu3");
 const airportRequest =
   "https://api.api-ninjas.com/v1/airports?region=California";
 const airportOptions = {
@@ -7,6 +7,8 @@ const airportOptions = {
     "X-Api-Key": "bnQwuT6BX0QsPXbYebfY/A==Y1ZwZQ6OLOMQOTSp",
   },
 };
+
+//const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 
 var statesList = [
   "Select",
@@ -62,11 +64,22 @@ var statesList = [
   "Wyoming",
 ];
 
+// function stateSelectHandler(event) {
+//   event.preventDefault();
+
+// }
+
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
 // console.log("X: ", x)
 
-function getApi(airportRequestUrl) {
+function selectedStateSaver() {
+  var state = California;
+
+  localStorage.setItem("selectedState", state);
+}
+
+function getAirports(airportRequestUrl) {
   fetch(airportRequestUrl, airportOptions)
     .then(function (response) {
       console.log(response.status);
@@ -77,4 +90,25 @@ function getApi(airportRequestUrl) {
     });
 }
 
-getApi(airportRequest);
+getAirports(airportRequest);
+
+// fetch(weatherRequest)
+//     .then(function (response) {
+//       if (response.ok) {
+//         console.log(response);
+//         response.json().then(function (data) {
+//           console.log(data.DailyForecasts[0]);
+//           var x = document.createElement("p");
+//           x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
+//           document.querySelector("body").appendChild(x)
+//       })
+
+//       } else {
+//         alert('Error: ' + response.statusText);
+//       }
+//     })
+//     .catch(function (error) {
+//
+//     });
+
+// selectEl.addEventListener('click', stateSelect)
