@@ -13,7 +13,6 @@ const selectedStateNameEl = document.querySelector("selected-state-display");
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 
-
 var statesList = [
   "Select",
   "Alabama",
