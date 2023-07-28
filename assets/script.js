@@ -12,9 +12,9 @@ const airportContainerEl = document.querySelector("#airport-container");
 const selectedStateNameEl = document.querySelector("selected-state-display");
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
-
-var statesList = [
-  "Select",
+const stateSelect = document.getElementById("selectState");
+const selectedStateDiv = document.getElementById("selectedState");
+const statesList = [
   "Alabama",
   "Alaska",
   "Arizona",
@@ -67,10 +67,19 @@ var statesList = [
   "Wyoming",
 ];
 
-// function stateSelectHandler(event) {
-//   event.preventDefault();
+for (var i = 0; i < statesList.length; i++) {
+  const stateSelected = statesList[i];
+  const listedState = document.createElement("option");
+  listedState.textContent = stateSelected;
+  listedState.value = stateSelected;
+  stateSelect.appendChild(listedState);
+}
 
-// }
+stateSelect.addEventListener("change", () => {
+  const selectedState = stateSelect.value;
+  selectedStateDiv.textContent = selectedState;
+  fetchAirportData(selectedState);
+});
 
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
