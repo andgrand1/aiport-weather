@@ -12,6 +12,9 @@
 
 .dropdown {
   margin-top: 10px;
+  margin-left: 10px;
+  width: 25%;
+  height: 30px;
 }
 
 .image {

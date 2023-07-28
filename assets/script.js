@@ -9,10 +9,8 @@ const airportOptions = {
 };
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
-
-
+var stateSelect = document.getElementById('selectState');
 var statesList = [
-  "Select",
   "Alabama",
   "Alaska",
   "Arizona",
@@ -64,6 +62,14 @@ var statesList = [
   "Wisconsin",
   "Wyoming",
 ];
+
+for (var i = 0; i < statesList.length; i++) {
+  var stateSelected = statesList[i];
+  var listState = document.createElement("option");
+  listState.textContent = stateSelected;
+  listState.value = stateSelected;
+  stateSelect.appendChild(listState);
+}
 
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
