@@ -1,6 +1,5 @@
 const selectEl = document.querySelector("#dropdown-menu3");
-const airportRequest =
-  "https://api.api-ninjas.com/v1/airports?region=California";
+const airportRequest = "https://api.api-ninjas.com/v1/airports?region=${state}";
 const airportOptions = {
   headers: {
     "Content-Type": "application/json",
@@ -9,10 +8,9 @@ const airportOptions = {
 };
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
-
-
-var statesList = [
-  "Select",
+const stateSelect = document.getElementById("selectState");
+const selectedStateDiv = document.getElementById("selectedState");
+const statesList = [
   "Alabama",
   "Alaska",
   "Arizona",
@@ -65,10 +63,19 @@ var statesList = [
   "Wyoming",
 ];
 
-// function stateSelectHandler(event) {
-//   event.preventDefault();
+for (var i = 0; i < statesList.length; i++) {
+  const stateSelected = statesList[i];
+  const listedState = document.createElement("option");
+  listedState.textContent = stateSelected;
+  listedState.value = stateSelected;
+  stateSelect.appendChild(listedState);
+}
 
-// }
+stateSelect.addEventListener("change", () => {
+  const selectedState = stateSelect.value;
+  selectedStateDiv.textContent = selectedState;
+  fetchAirportData(selectedState);
+});
 
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
@@ -91,8 +98,7 @@ function getAirports(airportRequestUrl) {
     });
 }
 
-
-getAirports(airportRequest);
+// getAirports(airportRequest);
 
 // fetch(weatherRequest)
 //     .then(function (response) {
