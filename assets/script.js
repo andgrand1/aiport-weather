@@ -1,7 +1,5 @@
 const selectEl = document.querySelector("#dropdown-menu3");
-const airportRequest =
-  "https://api.api-ninjas.com/v1/airports?region=" +
-  localStorage.getItem("selectedState");
+const airportRequest = "https://api.api-ninjas.com/v1/airports?region=";
 const airportOptions = {
   headers: {
     "Content-Type": "application/json",
@@ -78,24 +76,30 @@ for (var i = 0; i < statesList.length; i++) {
 stateSelect.addEventListener("change", () => {
   const selectedState = stateSelect.value;
   selectedStateDiv.textContent = selectedState;
-  fetchAirportData(selectedState);
+  localStorage.setItem("selectedState", selectedState);
+  getAirports(airportRequest);
 });
+
+function displaySelection() {
+  const savedState = localStorage.getItem("selectedState");
+
+  if (savedState !== null) {
+    selectedStateDiv.textContent = savedState;
+    stateSelect.value = savedState;
+
+    getAirports(airportRequest);
+  }
+}
 
 // var x = document.querySelector("option[value=Select]");
 // x.setAttribute("disable", "true")
 // console.log("X: ", x)
 
-function selectedStateSaver(stateName) {
-  var state = "California";
-
-  localStorage.setItem("selectedState", state);
-}
-
 function getAirports(airportRequestUrl) {
   const savedState = localStorage.getItem("selectedState");
 
   if (savedState !== null) {
-    fetch(airportRequestUrl, airportOptions)
+    fetch(airportRequestUrl + savedState, airportOptions)
       .then(function (response) {
         console.log(response.status);
         response.json().then(function (data) {
@@ -117,9 +121,7 @@ function getAirports(airportRequestUrl) {
 //   }
 // }
 
-selectedStateSaver();
-
-getAirports(airportRequest);
+displaySelection();
 
 // fetch(weatherRequest)
 //     .then(function (response) {
