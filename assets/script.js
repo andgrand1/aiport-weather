@@ -9,10 +9,9 @@ const airportOptions = {
 const airportContainerEl = document.querySelector("#airport-container");
 const selectedStateNameEl = document.querySelector("#selected-state-display");
 
-const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
-const listedAirport = document.getElementById(".list-group");
+const listedAirport = document.getElementById("airport-container");
 const getLatLon = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q="
 
 const statesList = [
@@ -134,6 +133,10 @@ function displayAirports(airports, stateName) {
 
     var titleEl = document.createElement("span");
     titleEl.textContent = airportName;
+    airportEl.addEventListener("click", function (event) {
+
+      getWeather(airportLat, airportLon);
+    })
 
     airportEl.appendChild(titleEl);
 
@@ -146,47 +149,55 @@ function displayAirports(airports, stateName) {
   }
 }
 
-listedAirport.addEventListener("click", function(event) {
-  var element = event.target;
-  var lat = element.getAttribute("data-lat");
-  var lon = element.getAttribute("data-lon");
-getWeather(lat, lon);
-return
-})
+// listedAirport.addEventListener("click", function (event) {
+//   var element = event.target;
+//   console.log(element, "andy")
+//   var lat = element.getAttribute("data-lat");
+//   var lon = element.getAttribute("data-lon");
+//   console.log(lat, lon, "Andy");
+//   getWeather(lat, lon);
+// })
 
 displaySelection();
-function getWeather(lat, lon){
-  fetch(getLatLon + lat + "," + lon)
-  .then(function (response) {
-    console.log(response.status);
-    response.json().then(function (data) {
-      console.log(data);
-
-      // keyWeather(data, savedState);
+function getWeather(lat, lon) {
+  fetch(`${getLatLon}${lat},${lon}`)
+    .then(function (response) {
+      console.log(response.status);
+      response.json().then(function (data) {
+        console.log(data);
+        const weatherKey = data.Key;
+        console.log(weatherKey)
+         keyWeather(weatherKey);
+      });
+    })
+    .catch(function (err) {
+      console.log(err);
     });
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
 }
 
 
+
+function keyWeather(weatherKey){
+  
+const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM`;
 fetch(weatherRequest)
-    .then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function (data) {
-          console.log(data.DailyForecasts[0]);
-          var x = document.createElement("p");
-          x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
-          document.querySelector("body").appendChild(x)
+  .then(function (response) {
+    if (response.ok) {
+      console.log(response);
+      response.json().then(function (data) {
+        console.log(data.DailyForecasts[0]);
+        var x = document.createElement("p");
+        x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
+        document.querySelector("body").appendChild(x)
       })
 
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
+    } else {
+      alert('Error: ' + response.statusText);
+    }
+  })
+  .catch(function (error) {
 
 
-    });
+  });
+
+}
