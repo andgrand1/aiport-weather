@@ -9,11 +9,13 @@ const airportOptions = {
 const airportContainerEl = document.querySelector("#airport-container");
 const selectedStateNameEl = document.querySelector("#selected-state-display");
 
-const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
+const weatherRequest =
+  "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
-const listedAirport = document.getElementById(".list-group");
-const getLatLon = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q="
+const listedAirport = document.querySelector(".list-group");
+const getLatLon =
+  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q=";
 
 const statesList = [
   "Alabama",
@@ -131,6 +133,17 @@ function displayAirports(airports, stateName) {
       "list-item flex-row justify-space-between align-center";
     airportEl.dataset.lat = airportLat;
     airportEl.dataset.lon = airportLon;
+    airportEl.onclick = function (event) {
+      listedAirport.forEach((selectedAirport) => {
+        removeAttribute(selectedAirport);
+      });
+      var element = event.target;
+      element.classList = "selected-airport";
+      var lat = element.getAttribute("data-lat");
+      var lon = element.getAttribute("data-lon");
+      getWeather(lat, lon);
+      return;
+    };
 
     var titleEl = document.createElement("span");
     titleEl.textContent = airportName;
@@ -146,47 +159,34 @@ function displayAirports(airports, stateName) {
   }
 }
 
-listedAirport.addEventListener("click", function(event) {
-  var element = event.target;
-  var lat = element.getAttribute("data-lat");
-  var lon = element.getAttribute("data-lon");
-getWeather(lat, lon);
-return
-})
-
 displaySelection();
-function getWeather(lat, lon){
+function getWeather(lat, lon) {
   fetch(getLatLon + lat + "," + lon)
-  .then(function (response) {
-    console.log(response.status);
-    response.json().then(function (data) {
-      console.log(data);
+    .then(function (response) {
+      console.log(response.status);
+      response.json().then(function (data) {
+        console.log(data);
 
-      // keyWeather(data, savedState);
+        // keyWeather(data, savedState);
+      });
+    })
+    .catch(function (err) {
+      console.log(err);
     });
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
 }
 
-
 fetch(weatherRequest)
-    .then(function (response) {
-      if (response.ok) {
-        console.log(response);
-        response.json().then(function (data) {
-          console.log(data.DailyForecasts[0]);
-          var x = document.createElement("p");
-          x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
-          document.querySelector("body").appendChild(x)
-      })
-
-      } else {
-        alert('Error: ' + response.statusText);
-      }
-    })
-    .catch(function (error) {
-
-
-    });
+  .then(function (response) {
+    if (response.ok) {
+      console.log(response);
+      response.json().then(function (data) {
+        console.log(data.DailyForecasts[0]);
+        var x = document.createElement("p");
+        x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
+        document.querySelector("body").appendChild(x);
+      });
+    } else {
+      alert("Error: " + response.statusText);
+    }
+  })
+  .catch(function (error) {});
