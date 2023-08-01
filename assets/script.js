@@ -9,13 +9,10 @@ const airportOptions = {
 const airportContainerEl = document.querySelector("#airport-container");
 const selectedStateNameEl = document.querySelector("#selected-state-display");
 
-const weatherRequest =
-  "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
-const listedAirport = document.querySelector(".list-group");
-const getLatLon =
-  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q=";
+const listedAirport = document.getElementById("airport-container");
+const getLatLon = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q="
 
 const statesList = [
   "Alabama",
@@ -147,6 +144,10 @@ function displayAirports(airports, stateName) {
 
     var titleEl = document.createElement("span");
     titleEl.textContent = airportName;
+    airportEl.addEventListener("click", function (event) {
+
+      getWeather(airportLat, airportLon);
+    })
 
     airportEl.appendChild(titleEl);
 
@@ -161,19 +162,25 @@ function displayAirports(airports, stateName) {
 
 displaySelection();
 function getWeather(lat, lon) {
-  fetch(getLatLon + lat + "," + lon)
+  fetch(`${getLatLon}${lat},${lon}`)
     .then(function (response) {
       console.log(response.status);
       response.json().then(function (data) {
         console.log(data);
-
-        // keyWeather(data, savedState);
+        const weatherKey = data.Key;
+        console.log(weatherKey)
+         keyWeather(weatherKey);
       });
     })
     .catch(function (err) {
       console.log(err);
     });
 }
+
+
+function keyWeather(weatherKey){
+  
+const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM`;
 
 fetch(weatherRequest)
   .then(function (response) {
@@ -183,10 +190,16 @@ fetch(weatherRequest)
         console.log(data.DailyForecasts[0]);
         var x = document.createElement("p");
         x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
-        document.querySelector("body").appendChild(x);
-      });
+        document.querySelector("body").appendChild(x)
+      })
+
     } else {
-      alert("Error: " + response.statusText);
+      alert('Error: ' + response.statusText);
     }
   })
-  .catch(function (error) {});
+  .catch(function (error) {
+
+
+  });
+
+}
