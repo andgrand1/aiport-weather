@@ -7,7 +7,7 @@ const airportOptions = {
   },
 };
 const airportContainerEl = document.querySelector("#airport-container");
-const selectedStateNameEl = document.querySelector("selected-state-display");
+const selectedStateNameEl = document.querySelector("#selected-state-display");
 
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
@@ -104,7 +104,7 @@ function getAirports(airportRequestUrl) {
         console.log(response.status);
         response.json().then(function (data) {
           console.log(data);
-          // displayAirports(data, savedState);
+          displayAirports(data, savedState);
         });
       })
       .catch(function (err) {
@@ -113,13 +113,29 @@ function getAirports(airportRequestUrl) {
   }
 }
 
-// function displayAirports(airports, stateName) {
-//   selectedStateNameEl.textContent = stateName;
+function displayAirports(airports, stateName) {
+  selectedStateNameEl.textContent = stateName;
 
-//   for (var i = 0; i < airports.length; i++) {
-//     const airportName =
-//   }
-// }
+  for (var i = 0; i < airports.length; i++) {
+    const airportName = airports[i].name + ", " + airports[i].city;
+
+    var airportEl = document.createElement("div");
+    airportEl.classList =
+      "list-item flex-row justify-space-between align-center";
+
+    var titleEl = document.createElement("span");
+    titleEl.textContent = airportName;
+
+    airportEl.appendChild(titleEl);
+
+    var statusEl = document.createElement("span");
+    statusEl.classList = "flex-row align-center";
+
+    airportEl.appendChild(statusEl);
+
+    airportContainerEl.appendChild(airportEl);
+  }
+}
 
 displaySelection();
 
