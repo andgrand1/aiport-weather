@@ -145,13 +145,13 @@ function displayAirports(airports, stateName) {
   }
 }
 
-listedAirport.addEventListener("click", function(event) {
-  var element = event.target;
-  var lat = element.getAttribute("data-lat");
-  var lon = element.getAttribute("data-lon");
-  // getWeather(lat, lon);
+// listedAirport.addEventListener("click", function(event) {
+//   var element = event.target;
+//   var lat = element.getAttribute("data-lat");
+//   var lon = element.getAttribute("data-lon");
+//   // getWeather(lat, lon);
 
-displaySelection();
+// displaySelection();
 
 // fetch(weatherRequest)
 //     .then(function (response) {
