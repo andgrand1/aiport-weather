@@ -12,6 +12,8 @@ const selectedStateNameEl = document.querySelector("#selected-state-display");
 //const weatherRequest = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/347625?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM";
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
+const listedAirport = document.getElementById(".list-item");
+
 const statesList = [
   "Alabama",
   "Alaska",
@@ -99,6 +101,8 @@ function getAirports(airportRequestUrl) {
   const savedState = localStorage.getItem("selectedState");
 
   if (savedState !== null) {
+    airportContainerEl.textContent = "";
+
     fetch(airportRequestUrl + savedState, airportOptions)
       .then(function (response) {
         console.log(response.status);
@@ -118,10 +122,14 @@ function displayAirports(airports, stateName) {
 
   for (var i = 0; i < airports.length; i++) {
     const airportName = airports[i].name + ", " + airports[i].city;
+    const airportLat = airports[i].latitude;
+    const airportLon = airports[i].longitude;
 
     var airportEl = document.createElement("div");
     airportEl.classList =
       "list-item flex-row justify-space-between align-center";
+    airportEl.dataset.lat = airportLat;
+    airportEl.dataset.lon = airportLon;
 
     var titleEl = document.createElement("span");
     titleEl.textContent = airportName;
@@ -136,6 +144,12 @@ function displayAirports(airports, stateName) {
     airportContainerEl.appendChild(airportEl);
   }
 }
+
+listedAirport.addEventListener("click", function(event) {
+  var element = event.target;
+  var lat = element.getAttribute("data-lat");
+  var lon = element.getAttribute("data-lon");
+  // getWeather(lat, lon);
 
 displaySelection();
 
@@ -158,5 +172,3 @@ displaySelection();
 
 //
 //     });
-
-// selectEl.addEventListener('click', stateSelect)
