@@ -17,32 +17,41 @@
       <h1 class="is-size-1 is-uppercase is-italic">Mild High Club</h1>
     </div>
 
-    <h1 class="firstheader">Select Your State</h1>
-    <form id="stateForm">
-      <select id="selectState" class="dropdownA">
-        <option>Select your State</option>
-      </select>
-    </form>
-
-    <div class="block">
-      Selected State:
-      <div id="selectedState" class="stateselect"></div>
-    </div>
-    <h1 class="subtitle">
-      Airports in <span id="selected-state-display"></span>:
-    </h1>
-
-    <div class="block">
-      <div id="airport-container" class="list-group"></div>
-    </div>
-
-    <div class="block">
-      <div id="weather-container">
-        <h1 class="subtitle">
-          Weather in <span id="selected-airport-display"></span>:
-        </h1>
+    <div class="columns">
+      
+      <div class="column is-one-third">
+        <h1 class="firstheader">Select Your State</h1>
+        <form id="stateForm">
+          <select id="selectState" class="dropdownA">
+            <option>Select your State</option>
+          </select>
+        </form>
       </div>
 
+      <div class="column is-one-third">
+        <div class="block">
+          Selected State:
+          <div id="selectedState" class="stateselect"></div>
+        </div>
+        <h1 class="subtitle">
+          Airports in <span id="selected-state-display"></span>:
+        </h1>
+
+        <div class="block">
+          <div id="airport-container" class="list-group"></div>
+        </div>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="block">
+          <div id="weather-container">
+            <h1 class="subtitle">
+              Weather in <span id="selected-airport-display"></span>:
+            </h1>
+        </div>
+      </div>
+
+    </div>  
     <!-- <div class="dropdown is-hoverable is-up">
       <div class="dropdown-trigger">
         <button
