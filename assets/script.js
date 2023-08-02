@@ -8,7 +8,9 @@ const airportOptions = {
 };
 const airportContainerEl = document.querySelector("#airport-container");
 const selectedStateNameEl = document.querySelector("#selected-state-display");
-
+const selectedAirportNameEl = document.querySelector(
+  "#selected-airport-display"
+);
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
 const listedAirport = document.getElementById("airport-container");
@@ -192,5 +194,7 @@ function keyWeather(weatherKey) {
         alert("Error: " + response.statusText);
       }
     })
-    .catch(function (error) {});
+    .catch(function (error) {
+      console.log(err);
+    });
 }
