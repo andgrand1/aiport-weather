@@ -15,7 +15,7 @@ const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
 const listedAirport = document.getElementById("airport-container");
 const getLatLon =
-  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q=";
+  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=9NxqxxJEJsAJMywoyWy0LRF5r0zYFdVk&q=";
 
 const statesList = [
   "Alabama",
@@ -131,16 +131,25 @@ function displayAirports(airports, stateName) {
     var airportEl = document.createElement("div");
     airportEl.classList =
       "list-item flex-row justify-space-between align-center";
-    airportEl.dataset.lat = airportLat;
-    airportEl.dataset.lon = airportLon;
+    airportEl.setAttribute("data-lat", airportLat);
+    airportEl.setAttribute("data-lon", airportLon);
     airportEl.onclick = function (event) {
       // listedAirport.forEach((selectedAirport) => {
       //   removeAttribute(selectedAirport);
       // });
       var element = event.target;
-      // element.classList = "selected-airport";
+      // when click, check elements for "selected-airport"
+      // if element w/"selected-airport" exists, remove "selected-airport"
+      if (document.querySelector("#selected-airport")) {
+        console.log("it exists");
+        document.querySelector("#selected-airport").removeAttribute("id");
+      }
+      element.setAttribute("id", "selected-airport");
+      var selected = document.querySelector("#selected-airport");
+      console.log(selected);
       var lat = element.getAttribute("data-lat");
       var lon = element.getAttribute("data-lon");
+      console.log(lat, lon);
       getWeather(lat, lon);
       return;
     };
@@ -178,7 +187,7 @@ function getWeather(lat, lon) {
 }
 
 function keyWeather(weatherKey) {
-  const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM`;
+  const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=9NxqxxJEJsAJMywoyWy0LRF5r0zYFdVk`;
 
   fetch(weatherRequest)
     .then(function (response) {
