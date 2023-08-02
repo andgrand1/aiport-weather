@@ -19,7 +19,7 @@ N/A
 
 Mild High Club is as simple as selecting a state and location. The first dropdown menu allows you to select a US state, and then displays 30 airports in the area for you to choose from. 
 
-![Screenshot]{images/mild high club.jpg)
+![Screenshot]{images/mild_high_club.jpg)
 
 ## Credits
 
