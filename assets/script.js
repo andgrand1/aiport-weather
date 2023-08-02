@@ -13,8 +13,6 @@ const selectedAirportNameEl = document.querySelector(
 );
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
-const listedAirport = document.getElementById("airport-container");
-const listedWeather = document.getElementById("weather-container");
 const getLatLon =
   "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=he2cZTB2Vlx8rA2Gj6ezwTEYbrBvZ6vN&q=";
 
@@ -95,11 +93,7 @@ function displaySelection() {
 
     getAirports(airportRequest);
   }
-}
-
-// var x = document.querySelector("option[value=Select]");
-// x.setAttribute("disable", "true")
-// console.log("X: ", x)
+};
 
 function getAirports(airportRequestUrl) {
   const savedState = localStorage.getItem("selectedState");
@@ -194,6 +188,7 @@ function keyWeather(weatherKey, airport) {
         response.json().then(function (data) {
           selectedAirportNameEl.textContent = airport;
           weatherSummary = data.Headline.Text;
+          
           weatherTemperatureMin =
             data.DailyForecasts[0].Temperature.Minimum.Value +
             " " +
@@ -224,14 +219,7 @@ function keyWeather(weatherKey, airport) {
           weatherEl.appendChild(tempEl);
 
           weatherContainerEl.appendChild(weatherEl);
-
-          console.log(data.DailyForecasts[0]);
-          var x = document.createElement("p");
-          x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
-          document.querySelector("body").appendChild(x);
         });
-      } else {
-        alert("Error: " + response.statusText);
       }
     })
     .catch(function (error) {
