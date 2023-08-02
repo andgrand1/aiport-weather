@@ -145,9 +145,6 @@ function displayAirports(airports, stateName) {
 
     var titleEl = document.createElement("span");
     titleEl.textContent = airportName;
-    airportEl.addEventListener("click", function (event) {
-      getWeather(airportLat, airportLon);
-    });
 
     airportEl.appendChild(titleEl);
 
@@ -161,6 +158,7 @@ function displayAirports(airports, stateName) {
 }
 
 displaySelection();
+
 function getWeather(lat, lon) {
   fetch(`${getLatLon}${lat},${lon}`)
     .then(function (response) {
