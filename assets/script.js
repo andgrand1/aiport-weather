@@ -1,4 +1,3 @@
-const selectEl = document.querySelector("#dropdown-menu3");
 const airportRequest = "https://api.api-ninjas.com/v1/airports?region=";
 const airportOptions = {
   headers: {
@@ -7,13 +6,17 @@ const airportOptions = {
   },
 };
 const airportContainerEl = document.querySelector("#airport-container");
+const weatherContainerEl = document.querySelector("#weather-container");
 const selectedStateNameEl = document.querySelector("#selected-state-display");
-
+const selectedAirportNameEl = document.querySelector(
+  "#selected-airport-display"
+);
 const stateSelect = document.getElementById("selectState");
 const selectedStateDiv = document.getElementById("selectedState");
 const listedAirport = document.getElementById("airport-container");
+const listedWeather = document.getElementById("weather-container");
 const getLatLon =
-  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM&q=";
+  "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=he2cZTB2Vlx8rA2Gj6ezwTEYbrBvZ6vN&q=";
 
 const statesList = [
   "Alabama",
@@ -129,17 +132,23 @@ function displayAirports(airports, stateName) {
     var airportEl = document.createElement("div");
     airportEl.classList =
       "list-item flex-row justify-space-between align-center";
-    airportEl.dataset.lat = airportLat;
-    airportEl.dataset.lon = airportLon;
+    airportEl.setAttribute("data-lat", airportLat);
+    airportEl.setAttribute("data-lon", airportLon);
     airportEl.onclick = function (event) {
-      // listedAirport.forEach((selectedAirport) => {
-      //   removeAttribute(selectedAirport);
-      // });
       var element = event.target;
-      // element.classList = "selected-airport";
+      // when click, check elements for "selected-airport"
+      // if element w/"selected-airport" exists, remove "selected-airport"
+      if (document.querySelector("#selected-airport")) {
+        console.log("it exists");
+        document.querySelector("#selected-airport").removeAttribute("id");
+      }
+      element.setAttribute("id", "selected-airport");
+      var selected = document.querySelector("#selected-airport");
+      console.log(selected);
       var lat = element.getAttribute("data-lat");
       var lon = element.getAttribute("data-lon");
-      getWeather(lat, lon);
+      console.log(lat, lon, airportName);
+      getWeather(lat, lon, airportName);
       return;
     };
 
@@ -159,15 +168,15 @@ function displayAirports(airports, stateName) {
 
 displaySelection();
 
-function getWeather(lat, lon) {
+function getWeather(lat, lon, name) {
   fetch(`${getLatLon}${lat},${lon}`)
     .then(function (response) {
       console.log(response.status);
       response.json().then(function (data) {
         console.log(data);
         const weatherKey = data.Key;
-        console.log(weatherKey);
-        keyWeather(weatherKey);
+        console.log(weatherKey, name);
+        keyWeather(weatherKey, name);
       });
     })
     .catch(function (err) {
@@ -175,14 +184,47 @@ function getWeather(lat, lon) {
     });
 }
 
-function keyWeather(weatherKey) {
-  const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=wsXVSsYf0yAjFnbzDKM1PbA50VdzYoXM`;
+function keyWeather(weatherKey, airport) {
+  const weatherRequest = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${weatherKey}?apikey=he2cZTB2Vlx8rA2Gj6ezwTEYbrBvZ6vN`;
 
   fetch(weatherRequest)
     .then(function (response) {
       if (response.ok) {
         console.log(response);
         response.json().then(function (data) {
+          selectedAirportNameEl.textContent = airport;
+          weatherSummary = data.Headline.Text;
+          weatherTemperatureMin =
+            data.DailyForecasts[0].Temperature.Minimum.Value +
+            " " +
+            data.DailyForecasts[0].Temperature.Minimum.Unit;
+          weatherTemperatureMax =
+            data.DailyForecasts[0].Temperature.Maximum.Value +
+            " " +
+            data.DailyForecasts[0].Temperature.Maximum.Unit;
+
+          var weatherEl = document.createElement("div");
+          weatherEl.classList =
+            "list-item flex-row justify-space-between align-center";
+
+          var summaryEl = document.createElement("span");
+          summaryEl.classList = "flex-row align-center";
+          summaryEl.textContent = weatherSummary;
+
+          weatherEl.appendChild(summaryEl);
+
+          var tempEl = document.createElement("span");
+          tempEl.classList = "flex-row align-center";
+          tempEl.textContent =
+            "Temperature range: " +
+            weatherTemperatureMin +
+            " -" +
+            weatherTemperatureMax;
+
+          weatherEl.appendChild(tempEl);
+
+          weatherContainerEl.appendChild(weatherEl);
+
           console.log(data.DailyForecasts[0]);
           var x = document.createElement("p");
           x.textContent = JSON.stringify(data.DailyForecasts[0].Temperature);
@@ -192,5 +234,7 @@ function keyWeather(weatherKey) {
         alert("Error: " + response.statusText);
       }
     })
-    .catch(function (error) {});
+    .catch(function (error) {
+      console.log(err);
+    });
 }
