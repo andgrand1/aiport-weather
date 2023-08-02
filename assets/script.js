@@ -93,7 +93,7 @@ function displaySelection() {
 
     getAirports(airportRequest);
   }
-};
+}
 
 function getAirports(airportRequestUrl) {
   const savedState = localStorage.getItem("selectedState");
@@ -129,7 +129,7 @@ function displayAirports(airports, stateName) {
     airportEl.setAttribute("data-lat", airportLat);
     airportEl.setAttribute("data-lon", airportLon);
     airportEl.onclick = function (event) {
-      var element = event.target;
+      var element = this;
       // when click, check elements for "selected-airport"
       // if element w/"selected-airport" exists, remove "selected-airport"
       if (document.querySelector("#selected-airport")) {
@@ -188,7 +188,7 @@ function keyWeather(weatherKey, airport) {
         response.json().then(function (data) {
           selectedAirportNameEl.textContent = airport;
           weatherSummary = data.Headline.Text;
-          
+
           weatherTemperatureMin =
             data.DailyForecasts[0].Temperature.Minimum.Value +
             " " +
